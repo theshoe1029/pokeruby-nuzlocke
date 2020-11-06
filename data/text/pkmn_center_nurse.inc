@@ -5,6 +5,9 @@ gText_NurseJoy_Welcome:: @ 81A0A7D
 	.string "full health.\p"
 	.string "Would you like to rest your POKéMON?$"
 
+gText_NurseJoy_StoreOrRelease:: @ 81A0A7D
+	.string "Store or release {STR_VAR_1}?$"
+
 gText_NurseJoy_WeHopeToSeeYouAgain:: @ 81A0AFA
 	.string "We hope to see you again!$"
 

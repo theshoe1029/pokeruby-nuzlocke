@@ -19,9 +19,20 @@ EventScript_PkmnCenterNurse_HealPkmn:: @ 819FD7C
 	applymovement VAR_0x800B, Common_Movement_WalkInPlaceFastestDown
 	waitmovement 0
 	special ScrSpecial_HealPlayerParty
+	special StoreOrReleaseParty
 	goto_if_unset FLAG_POKERUS_EXPLAINED, EventScript_PkmnCenterNurse_CheckPokerus
 	goto EventScript_PkmnCenterNurse_ReturnPkmn
 	end
+
+EventScript_PkmnCenternurse_StoreOrRelease:: @ 819FD00
+	faceplayer
+	msgbox gText_NurseJoy_Welcome, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq ReleaseFaintedPokemon
+	compare VAR_RESULT, NO
+	goto_if_eq StoreFaintedPokemon
+	end
+
 
 EventScript_PkmnCenterNurse_ReturnPkmn:: @ 819FDB0
 	message gText_NurseJoy_ThankYouForWaiting

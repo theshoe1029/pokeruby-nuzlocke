@@ -5078,8 +5078,7 @@ static void atk19_tryfaintmon(void)
                         AdjustFriendship(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], FRIENDSHIP_EVENT_FAINT_LARGE);
                     else
                         AdjustFriendship(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], FRIENDSHIP_EVENT_FAINT_SMALL);
-                }
-                ReleaseOrStoreMon(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]]);
+                }                
             }
             else
             {

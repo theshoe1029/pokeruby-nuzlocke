@@ -1005,21 +1005,6 @@ u8 SendMonToPC(struct Pokemon *mon)
     return 2;
 }
 
-void ReleaseOrStoreMon(struct Pokemon *mon)
-{
-    if(ShouldStoreMon())
-    {
-        SendMonToPC(mon);
-    }
-    ZeroMonData(mon);
-    gPlayerPartyCount--;
-}
-
-u8 ShouldStoreMon()
-{
-    return 1;
-}
-
 u8 CalculatePlayerPartyCount(void)
 {
     gPlayerPartyCount = 0;
