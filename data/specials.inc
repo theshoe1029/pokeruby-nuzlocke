@@ -10,8 +10,9 @@
 gSpecials::
 	def_special ScrSpecial_HealPlayerParty
     def_special StoreOrReleaseParty
-    def_special ReleaseFaintedPokemon
+    def_special RemoveFaintedPokemon
     def_special StoreFaintedPokemon
+    def_special HasFainted    
 	def_special SetCableClubWarp
 	def_special DoCableClubWarp
 	def_special sub_80810DC

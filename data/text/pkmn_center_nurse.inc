@@ -5,8 +5,23 @@ gText_NurseJoy_Welcome:: @ 81A0A7D
 	.string "full health.\p"
 	.string "Would you like to rest your POKéMON?$"
 
-gText_NurseJoy_StoreOrRelease:: @ 81A0A7D
-	.string "Store or release {STR_VAR_1}?$"
+gText_NurseJoy_Fainted:: @ 81A0A00
+	.string "Your POKéMON {STR_VAR_1} has fainted.\n"
+	.string "They must be stored or released.\p$"
+
+gText_NurseJoy_Store:: @ 81A0A00
+	.string "Store {STR_VAR_1}?$"
+
+gText_NurseJoy_StoreCompleted:: @ 81A0A00
+	.string "{STR_VAR_1} has been stored\n"
+	.string "in the PC.\p"
+	.string "They can no longer battle.\p$"
+
+gText_NurseJoy_Release:: @ 81A0A00
+	.string "Release {STR_VAR_1}?$"
+
+gText_NurseJoy_ReleaseCompleted:: @ 81A0A00
+	.string "{STR_VAR_1} has been released.\p$"
 
 gText_NurseJoy_WeHopeToSeeYouAgain:: @ 81A0AFA
 	.string "We hope to see you again!$"

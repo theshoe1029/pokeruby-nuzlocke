@@ -4,6 +4,9 @@
 #include "pokemon.h"
 #include "sprite.h"
 
+bool8 hasFainted;
+u16 gIndexFainted;
+bool8 HasFainted(void);
 void StoreOrReleaseParty(void);
 
 #endif

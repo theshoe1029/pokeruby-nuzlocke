@@ -1,40 +1,42 @@
 #include "global.h"
 #include "pokemon.h"
 #include "store_or_release.h"
+#include "pokemon_storage_system.h"
+#include "text.h"
+#include "string_util.h"
+#include "constants/species.h"
 
-u16 i;
-
-void StoreOrReleaseParty(void)
+void RemoveFaintedPokemon(void)
 {
-    for (i = 0; i < PARTY_SIZE; i++)
-    {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_HP) == 0 && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
-        {
-            CreateTask(Task_StoreOrReleaseMon, 0);
-        }
-    }
-}
-
-void ReleaseFaintedPokemon(void)
-{
-    u16 i;
-    for (i = 0; i < PARTY_SIZE; i++)
-    {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_HP) == 0 && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
-        {
-            CreateTask(Task_StoreOrReleaseMon, 0);
-        }
-    }
+    ZeroMonData(&gPlayerParty[gIndexFainted]);
+    party_compaction();
+    CalculatePlayerPartyCount();
 }
 
 void StoreFaintedPokemon(void)
 {
-    u16 i;
-    for (i = 0; i < PARTY_SIZE; i++)
+    SendMonToPC(&gPlayerParty[gIndexFainted]);
+    RemoveFaintedPokemon();
+}
+
+bool8 HasFainted(void)
+{
+    return hasFainted;
+}
+
+void StoreOrReleaseParty(void)
+{
+    hasFainted = FALSE;
+    for (gIndexFainted = 0; gIndexFainted < gPlayerPartyCount; gIndexFainted++)
     {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_HP) == 0 && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+        if (GetMonData(&gPlayerParty[gIndexFainted], MON_DATA_HP) == 0 && !GetMonData(&gPlayerParty[gIndexFainted], MON_DATA_IS_EGG)
+            && GetMonData(&gPlayerParty[gIndexFainted], MON_DATA_SPECIES) != SPECIES_NONE)
         {
-            CreateTask(Task_StoreOrReleaseMon, 0);
+            u8 nickname[20];
+            GetMonData(&gPlayerParty[gIndexFainted], MON_DATA_NICKNAME, nickname);
+            StringCopy10(gStringVar1, nickname);
+            hasFainted = TRUE;
+            break;
         }
     }
 }
