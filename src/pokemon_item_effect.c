@@ -241,7 +241,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *pkmn, u16 item, u8 partyIndex, u8 mo
                 {
                     u16 evCount;
                     s32 r5;
-     
+
                     switch (sp28)
                     {
                     case 0:
@@ -269,27 +269,27 @@ bool8 PokemonUseItemEffects(struct Pokemon *pkmn, u16 item, u8 partyIndex, u8 mo
                         // revive?
                         if (r10 & 0x10)
                         {
-                            if (GetMonData(pkmn, MON_DATA_HP, NULL) != 0)
-                            {
+                            //if (GetMonData(pkmn, MON_DATA_HP, NULL) != 0)
+                            //{
                                 sp24++;
                                 break;
-                            }
-                            if (gMain.inBattle)
-                            {
-                                if (sp34 != 4)
-                                {
-                                    gAbsentBattlerFlags &= ~gBitTable[sp34];
-                                    CopyPlayerPartyMonToBattleData(sp34, pokemon_order_func(gBattlerPartyIndexes[sp34]));
-                                    if (GetBattlerSide(gActiveBattler) == 0 && gBattleResults.unk4 < 255)
-                                        gBattleResults.unk4++;
-                                }
-                                else
-                                {
-                                    gAbsentBattlerFlags &= ~gBitTable[gActiveBattler ^ 2];
-                                    if (GetBattlerSide(gActiveBattler) == 0 && gBattleResults.unk4 < 255)
-                                        gBattleResults.unk4++;
-                                }
-                            }
+                            //}
+                            // if (gMain.inBattle)
+                            // {
+                            //     if (sp34 != 4)
+                            //     {
+                            //         gAbsentBattlerFlags &= ~gBitTable[sp34];
+                            //         CopyPlayerPartyMonToBattleData(sp34, pokemon_order_func(gBattlerPartyIndexes[sp34]));
+                            //         if (GetBattlerSide(gActiveBattler) == 0 && gBattleResults.unk4 < 255)
+                            //             gBattleResults.unk4++;
+                            //     }
+                            //     else
+                            //     {
+                            //         gAbsentBattlerFlags &= ~gBitTable[gActiveBattler ^ 2];
+                            //         if (GetBattlerSide(gActiveBattler) == 0 && gBattleResults.unk4 < 255)
+                            //             gBattleResults.unk4++;
+                            //     }
+                            // }
                         }
                         else
                         {
