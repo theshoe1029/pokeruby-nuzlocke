@@ -5078,7 +5078,7 @@ static void atk19_tryfaintmon(void)
                         AdjustFriendship(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], FRIENDSHIP_EVENT_FAINT_LARGE);
                     else
                         AdjustFriendship(&gPlayerParty[gBattlerPartyIndexes[gActiveBattler]], FRIENDSHIP_EVENT_FAINT_SMALL);
-                }                
+                }
             }
             else
             {
@@ -13654,23 +13654,23 @@ static void atkF3_trygivecaughtmonnick(void)
         sub_802BC6C();
         break;
     case 1:
-        if (gMain.newKeys & DPAD_UP && gBattleCommunication[1] != 0)
-        {
-            PlaySE(SE_SELECT);
-            nullsub_6();
-            gBattleCommunication[1] = 0;
-            sub_802BC6C();
-        }
-        if (gMain.newKeys & DPAD_DOWN && gBattleCommunication[1] == 0)
-        {
-            PlaySE(SE_SELECT);
-            nullsub_6();
-            gBattleCommunication[1] = 1;
-            sub_802BC6C();
-        }
-        if (gMain.newKeys & A_BUTTON)
-        {
-            PlaySE(SE_SELECT);
+        // if (gMain.newKeys & DPAD_UP && gBattleCommunication[1] != 0)
+        // {
+        //     PlaySE(SE_SELECT);
+        //     nullsub_6();
+        //     gBattleCommunication[1] = 0;
+        //     sub_802BC6C();
+        // }
+        // if (gMain.newKeys & DPAD_DOWN && gBattleCommunication[1] == 0)
+        // {
+        //     PlaySE(SE_SELECT);
+        //     nullsub_6();
+        //     gBattleCommunication[1] = 1;
+        //     sub_802BC6C();
+        // }
+        // if (gMain.newKeys & A_BUTTON)
+        // {
+        //     PlaySE(SE_SELECT);
             if (gBattleCommunication[1] == 0)
             {
                 gBattleCommunication[0]++;
@@ -13678,12 +13678,12 @@ static void atkF3_trygivecaughtmonnick(void)
             }
             else
                 gBattleCommunication[0] = 4;
-        }
-        else if (gMain.newKeys & B_BUTTON)
-        {
-            PlaySE(SE_SELECT);
-            gBattleCommunication[0] = 4;
-        }
+        // }
+        // else if (gMain.newKeys & B_BUTTON)
+        // {
+        //     PlaySE(SE_SELECT);
+        //     gBattleCommunication[0] = 4;
+        // }
         break;
     case 2:
         if (!gPaletteFade.active)
