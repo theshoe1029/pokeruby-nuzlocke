@@ -7,7 +7,7 @@
 #include "constants/species.h"
 
 void RemoveFaintedPokemon(void)
-{    
+{
     ZeroMonData(&gPlayerParty[i]);
     party_compaction();
     CalculatePlayerPartyCount();
@@ -38,6 +38,7 @@ void StoreOrReleaseParty(void)
             GetMonData(&gPlayerParty[i], MON_DATA_NICKNAME, nickname);
             StringCopy10(gStringVar1, nickname);
             hasFainted = TRUE;
+            RemoveFaintedPokemon();
             break;
         }
     }

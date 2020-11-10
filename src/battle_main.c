@@ -47,6 +47,7 @@
 #include "scanline_effect.h"
 #include "util.h"
 #include "ewram.h"
+#include "store_or_release.h"
 
 struct UnknownStruct7
 {
@@ -2390,7 +2391,7 @@ void debug_sub_8011EA0(u8 a)
 void debug_sub_8012294(void)
 {
     u8 r5 = gUnknown_Debug_030043A0 + gUnknown_Debug_030043A4 * 5;
-    
+
     if (r5 < 30)
     {
 // TODO: check other revisions
@@ -5140,6 +5141,7 @@ static void ReturnFromBattleToOverworld(void)
 
     m4aSongNumStop(0x5A);
     SetMainCallback2(gMain.savedCallback);
+    StoreOrReleaseParty();
 }
 
 void RunBattleScriptCommands_PopCallbacksStack(void)

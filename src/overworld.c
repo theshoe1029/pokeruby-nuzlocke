@@ -49,6 +49,8 @@
 #include "constants/maps.h"
 #include "constants/songs.h"
 #include "constants/species.h"
+#include "save.h"
+#include "main_menu.h"
 
 #ifdef SAPPHIRE
 #define LEGENDARY_MUSIC MUS_WEATHER_KYOGRE  // Heavy Rain
@@ -214,6 +216,7 @@ static void DoWhiteOut(void)
     Overworld_ResetStateAfterWhiteOut();
     Overworld_SetWarpDestToLastHealLoc();
     WarpIntoMap();
+    Save_EraseAllData();  
 }
 
 void Overworld_ResetStateAfterFly(void)
