@@ -867,7 +867,7 @@ const u16 gHoennToNationalOrder[] = // Assigns Hoenn Dex Pokémon (Using Nationa
 	NATIONAL_DEX_BLAZIKEN,  	// HOENN_DEX_BLAZIKEN
 	NATIONAL_DEX_MUDKIP,    	// HOENN_DEX_MUDKIP
 	NATIONAL_DEX_MARSHTOMP, 	// HOENN_DEX_MARSHTOMP
-	NATIONAL_DEX_SWAMPERT,  	// HOENN_DEX_SWAMPERT	
+	NATIONAL_DEX_SWAMPERT,  	// HOENN_DEX_SWAMPERT
 	NATIONAL_DEX_POOCHYENA, 	// HOENN_DEX_POOCHYENA
 	NATIONAL_DEX_MIGHTYENA, 	// HOENN_DEX_MIGHTYENA
 	NATIONAL_DEX_ZIGZAGOON, 	// HOENN_DEX_ZIGZAGOON
@@ -1430,6 +1430,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     value = 4;
     SetBoxMonData(boxMon, MON_DATA_POKEBALL, &value);
     SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gSaveBlock2.playerGender);
+	value = 0;
+	SetBoxMonData(boxMon, MON_DATA_10, 0);
 
     if (fixedIV < 32)
     {

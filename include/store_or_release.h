@@ -5,7 +5,7 @@
 #include "sprite.h"
 
 bool8 hasFainted;
-u16 gIndexFainted;
+u16 i;
 bool8 HasFainted(void);
 void StoreOrReleaseParty(void);
 

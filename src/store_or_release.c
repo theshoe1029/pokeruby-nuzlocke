@@ -7,15 +7,17 @@
 #include "constants/species.h"
 
 void RemoveFaintedPokemon(void)
-{
-    ZeroMonData(&gPlayerParty[gIndexFainted]);
+{    
+    ZeroMonData(&gPlayerParty[i]);
     party_compaction();
     CalculatePlayerPartyCount();
 }
 
 void StoreFaintedPokemon(void)
 {
-    SendMonToPC(&gPlayerParty[gIndexFainted]);
+    u32 value = 1;
+    SendMonToPC(&gPlayerParty[i]);
+    SetBoxMonData(&gPlayerParty[i].box, MON_DATA_10, &value);
     RemoveFaintedPokemon();
 }
 
@@ -27,13 +29,13 @@ bool8 HasFainted(void)
 void StoreOrReleaseParty(void)
 {
     hasFainted = FALSE;
-    for (gIndexFainted = 0; gIndexFainted < gPlayerPartyCount; gIndexFainted++)
+    for (i = 0; i < gPlayerPartyCount; i++)
     {
-        if (GetMonData(&gPlayerParty[gIndexFainted], MON_DATA_HP) == 0 && !GetMonData(&gPlayerParty[gIndexFainted], MON_DATA_IS_EGG)
-            && GetMonData(&gPlayerParty[gIndexFainted], MON_DATA_SPECIES) != SPECIES_NONE)
+        if (GetMonData(&gPlayerParty[i], MON_DATA_HP) == 0 && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG)
+            && GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE)
         {
             u8 nickname[20];
-            GetMonData(&gPlayerParty[gIndexFainted], MON_DATA_NICKNAME, nickname);
+            GetMonData(&gPlayerParty[i], MON_DATA_NICKNAME, nickname);
             StringCopy10(gStringVar1, nickname);
             hasFainted = TRUE;
             break;

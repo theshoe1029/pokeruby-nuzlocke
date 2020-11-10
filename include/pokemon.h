@@ -142,7 +142,8 @@ struct BoxPokemon
     /*0x14*/ u8 otName[OT_NAME_LENGTH];
     /*0x1B*/ u8 markings;
     /*0x1C*/ u16 checksum;
-    /*0x1E*/ u16 unknown;
+    /*0x1D*/ u8 unknown;
+    /*0x1E*/ u8 hasFainted;
 
     union
     {

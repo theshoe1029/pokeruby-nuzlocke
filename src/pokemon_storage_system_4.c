@@ -879,7 +879,7 @@ struct Sprite *sub_809A9A0(u16 x, u16 y, u8 animId, u8 priority, u8 subpriority)
     return gSprites + spriteId;
 }
 
-void sub_809AA24(void)
+void sub_809AA24(void) // Reset cursor
 {
     if (gPokemonStorageSystemPtr->unk_0005 != 1)
         sBoxCursorArea = 0;
@@ -1006,13 +1006,14 @@ void sub_809AD3C(u8 a0, u8 a1)
     u16 x;
     u16 y;
 
-    sub_809AACC(a0, a1, &x, &y);
+    sub_809AACC(a0, a1, &x, &y); // Move to square
     gPokemonStorageSystemPtr->unk_11e0 = a0;
     gPokemonStorageSystemPtr->unk_11e1 = a1;
     gPokemonStorageSystemPtr->unk_11d8 = x;
     gPokemonStorageSystemPtr->unk_11da = y;
 }
 
+// Might be cursor
 void sub_809AD94(void)
 {
     int r7;
@@ -1056,6 +1057,7 @@ void sub_809AD94(void)
     gPokemonStorageSystemPtr->unk_11cc = gPokemonStorageSystemPtr->unk_11c0->pos1.y << 8;
 }
 
+// Move to party animation
 void sub_809AF18(u8 a0, u8 a1)
 {
     sub_809AD3C(a0, a1);
@@ -1322,11 +1324,11 @@ void diegohint2(u8 a0, u8 a1)
 {
     if (a0 == 14)
     {
-        gPlayerParty[a1] = gPokemonStorageSystemPtr->unk_25b4;
+        gPlayerParty[a1] = gPokemonStorageSystemPtr->unk_25b4; // Set party mon data
     }
     else
     {
-        BoxMonRestorePP(&gPokemonStorageSystemPtr->unk_25b4.box);
+        BoxMonRestorePP(&gPokemonStorageSystemPtr->unk_25b4.box); // Set box mon data
         gPokemonStorage.boxes[a0][a1] = gPokemonStorageSystemPtr->unk_25b4.box;
     }
 }
@@ -1334,21 +1336,25 @@ void diegohint2(u8 a0, u8 a1)
 void sub_809B548(u8 a0, u8 a1)
 {
     if (a0 == 14)
-        ZeroMonData(gPlayerParty + a1);
+        ZeroMonData(gPlayerParty + a1); // Zero party mon
     else
-        ZeroBoxMonData(gPokemonStorage.boxes[a0] + a1);
+        ZeroBoxMonData(gPokemonStorage.boxes[a0] + a1); // Zero box mon
 }
 
 void diegohint1(u8 a0, u8 a1)
 {
     if (a0 == 14)
-        gPokemonStorageSystemPtr->unk_2618 = gPlayerParty[a1];
+    {
+        gPokemonStorageSystemPtr->unk_2618 = gPlayerParty[a1];  // Get party mon data
+    }
     else
-        ExpandBoxMon(gPokemonStorage.boxes[a0] + a1, &gPokemonStorageSystemPtr->unk_2618);
-    diegohint2(a0, a1);
-    gPokemonStorageSystemPtr->unk_25b4 = gPokemonStorageSystemPtr->unk_2618;
-    sub_809C04C(&gPokemonStorageSystemPtr->unk_25b4, 0);
-    gUnknown_020384E7 = a0;
+    {
+        ExpandBoxMon(gPokemonStorage.boxes[a0] + a1, &gPokemonStorageSystemPtr->unk_2618); // Get box mon data
+    }
+    diegohint2(a0, a1); // Send mon data to party or box
+    gPokemonStorageSystemPtr->unk_25b4 = gPokemonStorageSystemPtr->unk_2618; // Set selected mon data
+    sub_809C04C(&gPokemonStorageSystemPtr->unk_25b4, 0); // Show selected mon
+    gUnknown_020384E7 = a0; // Set globals
     gUnknown_020384E8 = a1;
 }
 
@@ -1690,6 +1696,7 @@ void sub_809C028(void)
         sub_809BF74();
 }
 
+// Show pokemon preview
 void sub_809C04C(void *pokemon, u8 a1)
 {
     u8 *buf;
@@ -1955,6 +1962,7 @@ u8 sub_809C464(void)
     return r9;
 }
 
+// Move cursor
 u8 sub_809C664(void)
 {
     u8 retVal;
@@ -2075,6 +2083,7 @@ u8 sub_809C664(void)
     return retVal;
 }
 
+// Box list menu
 u8 sub_809C85C(void)
 {
     u8 retVal;
@@ -2145,6 +2154,7 @@ u8 sub_809C85C(void)
     return retVal;
 }
 
+// Party pokemon menu
 u8 sub_809C944(void)
 {
     u8 retVal;
