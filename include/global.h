@@ -682,6 +682,7 @@ struct SaveBlock1 /* 0x02025734 */
     /*0x3690*/ struct RamScript ramScript;
     /*0x3A7C*/ struct RecordMixingGift recordMixingGift;
     /*0x3A8C*/ u8 dexSeen3[DEX_FLAGS_NO];
+    u8 hasCaughtMon[500];
 };
 
 extern struct SaveBlock1 gSaveBlock1;

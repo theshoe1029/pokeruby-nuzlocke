@@ -353,6 +353,7 @@ enum
     BATTLE_TEXT_Obtained3,
     BATTLE_TEXT_NoEffect,
     BATTLE_TEXT_NoEffectOn,
+    BATTLE_TEXT_AlreadyCaught,
 };
 
 const u8 BattleText_UnknownString[] = _("{STRING 33}");
@@ -741,6 +742,7 @@ const u8 BattleText_TutorialUsed[] = _("WALLY used\n{STRING 19}!");
 const u8 BattleText_Used2[] = _("{STRING 25} {STRING 26}\nused {STRING 19}!");
 const u8 BattleText_BlockBall[] = _("The TRAINER blocked the BALL!");
 const u8 BattleText_DontBeAThief[] = _("Don't be a thief!");
+const u8 BattleText_AlreadyCaught[] = _("You already caught a POKéMON\n on this route!");
 const u8 BattleText_DodgeBall[] = _("It dodged the thrown BALL!\nThis POKéMON can't be caught!");
 const u8 BattleText_MissPoke[] = _("You missed the POKéMON!");
 const u8 BattleText_BallBrokeOhNo[] = _("Oh, no!\nThe POKéMON broke free!");
@@ -1215,6 +1217,7 @@ const u8 *const gBattleStringsTable[] =
     BattleText_Obtained3,
     BattleText_NoEffect,
     BattleText_NoEffectOn,
+    BattleText_AlreadyCaught,
 };
 
 // below are lists of battle string enums and NOT pointers to the strings.
@@ -1366,12 +1369,12 @@ const u16 gFirstTurnOfTwoStringIds[] =
 
 const u16 gWrappedStringIds[] =
 {
-    BATTLE_TEXT_SqueezedBind, 
-    BATTLE_TEXT_Wrapped, 
-    BATTLE_TEXT_TrappedVortex, 
-    BATTLE_TEXT_Clamped, 
-    BATTLE_TEXT_TrappedVortex, 
-    BATTLE_TEXT_SandTombTrapped, 
+    BATTLE_TEXT_SqueezedBind,
+    BATTLE_TEXT_Wrapped,
+    BATTLE_TEXT_TrappedVortex,
+    BATTLE_TEXT_Clamped,
+    BATTLE_TEXT_TrappedVortex,
+    BATTLE_TEXT_SandTombTrapped,
 };
 
 const u16 gMistUsedStringIds[] =
@@ -1499,10 +1502,10 @@ const u16 gWeatherContinuesStringIds[] =
 
 const u16 gInobedientStringIds[] =
 {
-    BATTLE_TEXT_LoafingAround, 
-    BATTLE_TEXT_WontObey, 
-    BATTLE_TEXT_TurnedAway, 
-    BATTLE_TEXT_NotNotice, 
+    BATTLE_TEXT_LoafingAround,
+    BATTLE_TEXT_WontObey,
+    BATTLE_TEXT_TurnedAway,
+    BATTLE_TEXT_NotNotice,
 };
 
 const u16 gSafariGetNearStringIds[] =

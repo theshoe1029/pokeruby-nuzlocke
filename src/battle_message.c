@@ -16,7 +16,7 @@
 #include "ewram.h"
 
 #define BATTLESTRING_TO_SUB 12
-#define BATTLESTRINGS_NO    351
+#define BATTLESTRINGS_NO    352
 #define BATTLESTRINGS_MAX   BATTLESTRINGS_NO + BATTLESTRING_TO_SUB
 
 #ifdef GERMAN
@@ -1001,20 +1001,20 @@ void ChooseMoveUsedParticle(u8* textBuff)
 
 // Appends "!" to the text buffer `dst`. In the original Japanese this looked
 // into the table of moves at gUnknown_084016BC and varied the line accordingly.
-// 
+//
 // BattleText_Exclamation was a plain "!", used for any attack not on the list.
 // It resulted in the translation "<NAME>'s <ATTACK>!".
-// 
+//
 // BattleText_Exclamation2 was "を つかった！". This resulted in the translation
 // "<NAME> used <ATTACK>!", which was used for all attacks in English.
-// 
+//
 // BattleText_Exclamation3 was "した！". This was used for those moves whose
 // names were verbs, such as Recover, and resulted in translations like "<NAME>
 // recovered itself!".
-// 
+//
 // BattleText_Exclamation4 was "を した！" This resulted in a translation of
 // "<NAME> did an <ATTACK>!".
-// 
+//
 // BattleText_Exclamation5 was " こうげき！" This resulted in a translation of
 // "<NAME>'s <ATTACK> attack!".
 void ChooseTypeOfMoveUsedString(u8* dst)

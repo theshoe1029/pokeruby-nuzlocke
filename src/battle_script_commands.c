@@ -105,6 +105,7 @@ extern u16 gUnknown_02024C2C[4]; //last used moves 2, used by sketch
 extern u16 gUnknown_02024C4C[4]; //last used moves by banks, another one
 extern u8 gCurrentTurnActionNumber;
 extern u16 gTrappingMoves[];
+extern u8 gHasCaughtMon[500];
 
 extern u8 BattleScript_MoveEffectSleep[];
 extern u8 BattleScript_MoveEffectPoison[];
@@ -210,6 +211,7 @@ extern u8 BattleScript_MistProtected[];
 extern u8 BattleScript_AbilityNoStatLoss[];
 extern u8 BattleScript_AbilityNoSpecificStatLoss[];
 extern u8 BattleScript_TrainerBallBlock[];
+extern u8 BattleScript_AlreadyCaught[];
 extern u8 BattleScript_WallyBallThrow[];
 extern u8 BattleScript_SuccessBallThrow[];
 extern u8 BattleScript_ShakeBallThrow[];
@@ -13371,6 +13373,12 @@ void atkEF_handleballthrow(void)
         MarkBattlerForControllerExec(gActiveBattler);
         gBattlescriptCurrInstr = BattleScript_WallyBallThrow;
     }
+    else if (gSaveBlock1.hasCaughtMon[gMapHeader.regionMapSectionId] == 1)
+    {
+        BtlController_EmitBallThrowAnim(0, 5);
+        MarkBattlerForControllerExec(gActiveBattler);
+        gBattlescriptCurrInstr = BattleScript_AlreadyCaught;
+    }
     else
     {
         u32 odds;
@@ -13453,6 +13461,7 @@ void atkEF_handleballthrow(void)
                 gBattleCommunication[MULTISTRING_CHOOSER] = 0;
             else
                 gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+            gSaveBlock1.hasCaughtMon[gMapHeader.regionMapSectionId] = 1;
         }
         else //poke may be caught, calculate shakes
         {
@@ -13472,6 +13481,7 @@ void atkEF_handleballthrow(void)
                     gBattleCommunication[MULTISTRING_CHOOSER] = 0;
                 else
                     gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+                gSaveBlock1.hasCaughtMon[gMapHeader.regionMapSectionId] = 1;
             }
             else //rip
             {

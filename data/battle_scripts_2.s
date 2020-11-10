@@ -105,6 +105,12 @@ BattleScript_TrainerBallBlock:: @ 81D9F35
 	waitmessage 64
 	finishaction
 
+BattleScript_AlreadyCaught:: @ 81D9F35
+	waitmessage 64
+	printstring BATTLE_TEXT_AlreadyCaught
+	waitmessage 64
+	finishaction
+
 BattleScript_PlayerUsesItem: @ 81D9F45
 	setbyte sMOVEEND_STATE, 15
 	moveend 1, 0
