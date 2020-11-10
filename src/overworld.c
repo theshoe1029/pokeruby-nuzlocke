@@ -207,7 +207,6 @@ static void (*const gUnknown_082166D8[])(struct LinkPlayerObjectEvent *, struct 
     sub_8055D38,
 };
 
-
 static void DoWhiteOut(void)
 {
     ScriptContext2_RunNewScript(EventScript_WhiteOut);
@@ -216,7 +215,7 @@ static void DoWhiteOut(void)
     Overworld_ResetStateAfterWhiteOut();
     Overworld_SetWarpDestToLastHealLoc();
     WarpIntoMap();
-    Save_EraseAllData();  
+    Save_EraseAllData();
 }
 
 void Overworld_ResetStateAfterFly(void)
@@ -1316,7 +1315,7 @@ void debug_sub_8058C00(void)
 
 void CB2_WhiteOut(void)
 {
-    u8 val;
+    // u8 val;
     gMain.state++;
     if (gMain.state >= 120)
     {
@@ -1324,15 +1323,16 @@ void CB2_WhiteOut(void)
         StopMapMusic();
         ResetSafariZoneFlag_();
         DoWhiteOut();
-        ResetInitialPlayerAvatarState();
-        ScriptContext1_Init();
-        ScriptContext2_Disable();
-        gFieldCallback = sub_8080B60;
-        val = 0;
-        do_load_map_stuff_loop(&val);
-        SetFieldVBlankCallback();
-        SetMainCallback1(CB1_Overworld);
-        SetMainCallback2(CB2_Overworld);
+        SetMainCallback2(CB2_InitMainMenu);
+        // ResetInitialPlayerAvatarState();
+        // ScriptContext1_Init();
+        // ScriptContext2_Disable();
+        // gFieldCallback = sub_8080B60;
+        // val = 0;
+        // do_load_map_stuff_loop(&val);
+        // SetFieldVBlankCallback();
+        // SetMainCallback1(CB1_Overworld);
+        // SetMainCallback2(CB2_Overworld);
     }
 }
 
