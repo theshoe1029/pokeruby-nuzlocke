@@ -23,7 +23,7 @@
 #define VERSION_BANNER_LEFT_X 98
 #define VERSION_BANNER_RIGHT_X 162
 #define VERSION_BANNER_Y 26
-#define VERSION_BANNER_Y_GOAL 66
+#define VERSION_BANNER_Y_GOAL 68
 #define START_BANNER_X DISPLAY_WIDTH / 2
 #elif GERMAN
 #define VERSION_BANNER_SHAPE 0
@@ -63,15 +63,56 @@ static const u8 sLegendaryMonPixelData[] = INCBIN_U8("graphics/title_screen/kyog
 static const u8 sLegendaryMonTilemap[] = INCBIN_U8("graphics/title_screen/kyogre_map.bin.lz");
 static const u8 sBackdropTilemap[] = INCBIN_U8("graphics/title_screen/water_map.bin.lz");
 #else
-static const u16 sLegendaryMonPalettes[][16] =
-{
-    INCBIN_U16("graphics/title_screen/groudon_dark.gbapal"),
-    INCBIN_U16("graphics/title_screen/groudon_glow.gbapal"),
-};
-static const u8 sLegendaryMonPixelData[] = INCBIN_U8("graphics/title_screen/groudon.4bpp.lz");
-static const u8 sLegendaryMonTilemap[] = INCBIN_U8("graphics/title_screen/groudon_map.bin.lz");
-static const u8 sBackdropTilemap[] = INCBIN_U8("graphics/title_screen/lava_map.bin.lz");
+// static const u16 sLegendaryMonPalette[] = INCBIN_U16("graphics/intro/intro2_bgtrees.gbapal");
+// static const u8 sLegendaryMonPixelData[] = INCBIN_U8("graphics/intro/intro2_bgtrees.4bpp.lz");
+// static const u8 sLegendaryMonTilemap[] = INCBIN_U8("graphics/intro/intro2_bgtrees_map.bin.lz");
+// static const u8 sBackdropTilemap[] = INCBIN_U8("graphics/title_screen/lava_map.bin.lz");
+const u8 sBackgroundPixelData[] = INCBIN_U8("graphics/title_screen/rose_bg.4bpp.lz");
+const u8 sBackgroundTilemap[] = INCBIN_U8("graphics/title_screen/rose_bg_map.bin.lz");
+const u16 sBackgroundPalette[] = INCBIN_U16("graphics/title_screen/rose_bg.gbapal");
 #endif
+
+const u8 sRaltsMonPixelData[] = INCBIN_U8("graphics/pokemon/ralts/front.4bpp.lz");
+const u8 sRaltsPalette[] = INCBIN_U8("graphics/pokemon/ralts/normal.gbapal.lz");
+static const struct CompressedSpriteSheet sSpriteSheet_Mon[] =
+{
+    {sRaltsMonPixelData, 4096, 777},
+    {NULL},
+};
+static const struct CompressedSpritePalette sSpritePal_Mon[] =
+{
+    {sRaltsPalette, 777},
+    {NULL},
+};
+static const struct OamData sMonOamData =
+{
+    .y = 0,
+    .affineMode = 0,
+    .objMode = 0,
+    .mosaic = 0,
+    .bpp = 0,
+    .shape = 0,
+    .x = 0,
+    .matrixNum = 0,
+    .size = 3,
+    .tileNum = 0,
+    .priority = 0,
+    .paletteNum = 0,
+    .affineParam = 0,
+};
+static const struct SpriteTemplate sMonSpriteTemplate =
+
+{
+    .tileTag = 777,
+    .paletteTag = 777,
+    .oam = &sMonOamData,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy,
+};
+
+
 static const u8 sLogoShineTiles[] = INCBIN_U8("graphics/title_screen/logo_shine.4bpp.lz");
 const u16 gUnknown_08393E64[] =
 {
@@ -360,7 +401,7 @@ static void CB2_GoToTestMenu(void);
 static void CB2_GoToClearSaveDataScreen(void);
 static void CB2_GoToResetRtcScreen(void);
 static void CB2_GoToCopyrightScreen(void);
-static void UpdateLegendaryMarkingColor(u8);
+//static void UpdateLegendaryMarkingColor(u8);
 
 void SpriteCallback_VersionBannerLeft(struct Sprite *sprite)
 {
@@ -644,10 +685,15 @@ void CB2_InitTitleScreen(void)
         LZ77UnCompVram(gUnknown_08E9D8CC, (void *)VRAM);
         LZ77UnCompVram(gUnknown_08E9F7E4, (void *)(VRAM + 0x4800));
         LoadPalette(gUnknown_08E9F624, 0, 0x1C0);
-        LZ77UnCompVram(sLegendaryMonPixelData, (void *)(VRAM + 0x8000));
-        LZ77UnCompVram(sLegendaryMonTilemap, (void *)(VRAM + 0xC000));
-        LZ77UnCompVram(sBackdropTilemap, (void *)(VRAM + 0xC800));
-        LoadPalette(sLegendaryMonPalettes, 0xE0, sizeof(sLegendaryMonPalettes));
+        // LZ77UnCompVram(sLegendaryMonPixelData, (void *)(VRAM + 0x8000));
+        // LZ77UnCompVram(sLegendaryMonTilemap, (void *)(VRAM + 0xC000));
+        // LZ77UnCompVram(sBackdropTilemap, (void *)(VRAM + 0xC800));
+        //LoadPalette(sLegendaryMonPalettes, 0xE0, sizeof(sLegendaryMonPalettes));
+
+        LZ77UnCompVram(&sBackgroundPixelData, (void *)(VRAM + 0x8000));
+        LZ77UnCompVram(&sBackgroundTilemap, (void *)(VRAM + 0xC000));
+        LoadPalette(&sBackgroundPalette, 0xE0, 32);
+
         ScanlineEffect_Stop();
         ResetTasks();
         ResetSpriteData();
@@ -658,6 +704,10 @@ void CB2_InitTitleScreen(void)
         LoadCompressedObjectPic(&sPokemonLogoShineSpriteSheet[0]);
         LoadPalette(gUnknown_08E9F624, 0x100, 0x1C0);
         LoadSpritePalette(&sPokemonLogoShinePalette[0]);
+
+        LoadCompressedObjectPic(sSpriteSheet_Mon);
+        LoadCompressedObjectPalette(sSpritePal_Mon);
+
         gMain.state = 2;
         break;
     case 2:
@@ -798,6 +848,9 @@ static void Task_TitleScreenPhase2(u8 taskId)
                     | DISPCNT_OBJ_ON;
         CreatePressStartBanner(START_BANNER_X, 108);
         CreateCopyrightBanner(DISPLAY_WIDTH / 2, 148);
+
+        CreateSprite(&sMonSpriteTemplate, 190, 110, 0);
+
         gTasks[taskId].data[4] = 0;
         gTasks[taskId].func = Task_TitleScreenPhase3;
     }
@@ -844,13 +897,13 @@ static void Task_TitleScreenPhase3(u8 taskId)
         {
             REG_BG2Y = 0;
             gTasks[taskId].tCounter++;
-            if (gTasks[taskId].tCounter & 1)
-            {
-                gTasks[taskId].data[4]++;
-                gBattle_BG1_Y = gTasks[taskId].data[4];
-                gBattle_BG1_X = 0;
-            }
-            UpdateLegendaryMarkingColor(gTasks[taskId].tCounter);
+            // if (gTasks[taskId].tCounter & 1)
+            // {
+            //     gTasks[taskId].data[4]++;
+            //     gBattle_BG1_Y = gTasks[taskId].data[4];
+            //     gBattle_BG1_X = 0;
+            // }
+            // UpdateLegendaryMarkingColor(gTasks[taskId].tCounter);
             if ((gMPlayInfo_BGM.status & 0xFFFF) == 0)
             {
                 BeginNormalPaletteFade(0xFFFFFFFF, 0, 0, 16, FADE_COLOR_WHITE);
@@ -892,20 +945,19 @@ static void CB2_GoToResetRtcScreen(void)
         SetMainCallback2(CB2_InitResetRtcScreen);
 }
 
-static void UpdateLegendaryMarkingColor(u8 frameNum)
-{
-    u16 palette;
-
-    if ((frameNum % 4) == 0) //Change color every 4th frame
-    {
-        u8 colorIntensity = (frameNum >> 2) & 31; //Take bits 2-6 of frameNum the color intensity
-        u8 fadeDarker = (frameNum >> 2) & 32;
-
-        if (!fadeDarker)
-            palette = LEGENDARY_MARKING_COLOR(colorIntensity);
-        else
-            palette = LEGENDARY_MARKING_COLOR(31 - colorIntensity);
-        LoadPalette(&palette, 0xEF, sizeof(palette));
-   }
-}
-
+// static void UpdateLegendaryMarkingColor(u8 frameNum)
+// {
+//     u16 palette;
+//
+//     if ((frameNum % 4) == 0) //Change color every 4th frame
+//     {
+//         u8 colorIntensity = (frameNum >> 2) & 31; //Take bits 2-6 of frameNum the color intensity
+//         u8 fadeDarker = (frameNum >> 2) & 32;
+//
+//         if (!fadeDarker)
+//             palette = LEGENDARY_MARKING_COLOR(colorIntensity);
+//         else
+//             palette = LEGENDARY_MARKING_COLOR(31 - colorIntensity);
+//         LoadPalette(&palette, 0xEF, sizeof(palette));
+//    }
+// }

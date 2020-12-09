@@ -1028,7 +1028,7 @@ asm(".space 352");
 
 const u8 gNamingScreenMenu_Gfx[] = INCBIN_U8("graphics/naming_screen/menu.4bpp");
 
-const u16 gNamingScreenPalettes[][16] = 
+const u16 gNamingScreenPalettes[][16] =
 {
     INCBIN_U16("graphics/naming_screen/0.gbapal"),
     INCBIN_U16("graphics/naming_screen/1.gbapal"),
@@ -1135,7 +1135,7 @@ const u8 gBerryBlenderMiscPalette[] = INCBIN_U8("graphics/berry_blender/misc.gba
 const u8 gBerryBlenderArrowPalette[] = INCBIN_U8("graphics/berry_blender/arrow.gbapal");
 
 const u16 gTilesetTiles_General[] = INCBIN_U16("data/tilesets/primary/general/tiles.4bpp.lz");
-const u16 gTilesetPalettes_General[][16] = 
+const u16 gTilesetPalettes_General[][16] =
 {
     INCBIN_U16("data/tilesets/primary/general/palettes/00.gbapal"),
     INCBIN_U16("data/tilesets/primary/general/palettes/01.gbapal"),
@@ -1175,7 +1175,7 @@ const u8 gUnknown_08E95FB8[] = INCBIN_U8("graphics/slot_machine/slots_layout.bin
 const u8 gUnknown_08E964B8[] = INCBIN_U8("graphics/contest/contest_words.bin");
 const u16 gUnknown_08E966B8[] = INCBIN_U16("graphics/unknown/unknown_E966B8.gbapal");
 
-const u16 gMonIconPalettes[][16] = 
+const u16 gMonIconPalettes[][16] =
 {
     INCBIN_U16("graphics/pokemon_icon_palettes/0.gbapal"),
     INCBIN_U16("graphics/pokemon_icon_palettes/1.gbapal"),
@@ -1319,7 +1319,7 @@ const u16 gUnknown_08E9F624[] = INCBIN_U16("graphics/title_screen/logo_sapphire.
 // for some reason, the sapphire palette is different even though the visible colors for the logo and version are not
 #else
 const u8 gUnknown_08E9D8CC[] = INCBIN_U8("graphics/title_screen/pokemon_ruby.8bpp.lz");
-const u8 gVersionTiles[] = INCBIN_U8("graphics/title_screen/rubyversion.8bpp.lz");
+const u8 gVersionTiles[] = INCBIN_U8("graphics/title_screen/roseversion.8bpp.lz");
 const u16 gUnknown_08E9F624[] = INCBIN_U16("graphics/title_screen/logo_ruby.gbapal");
 #endif // SAPPHIRE
 

@@ -1,9 +1,16 @@
 gBirchSpeech_Welcome:: @ 81C6D78
 	.string "Hi! Sorry to keep you waiting!\p"
-	.string "Welcome to the world of POKéMON!\p"
+	.string "Welcome to POKéMON ROSE!\p"
 	.string "My name is BIRCH.\p"
 	.string "But everyone calls me the POKéMON\n"
-	.string "PROFESSOR.\p$"
+	.string "PROFESSOR.\p"
+	.string "In this world, you must nickname all\n"
+	.string "of your POKéMON.\p"
+	.string "You can only catch the first\n"
+	.string "POKéMON you encounter\p"
+	.string "on each route.\p"
+	.string "And be careful! POKéMON that\n"
+	.string "faint are released after battle.\p$"
 
 gBirchSpeech_ThisIsPokemon:: @ 81C6DF8
 	.string "This is what we call a “POKéMON.”$"
