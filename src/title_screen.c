@@ -15,8 +15,11 @@
 #include "sprite.h"
 #include "task.h"
 #include "scanline_effect.h"
+#include "rom_8077ABC.h"
 
 #if ENGLISH
+#define TREE_X 20
+#define TREE_Y 50
 #define VERSION_BANNER_SHAPE 1
 #define VERSION_BANNER_RIGHT_TILEOFFSET 64
 #define VERSION_BANNER_BYTES 0x1000
@@ -106,6 +109,93 @@ static const struct SpriteTemplate sMonSpriteTemplate =
     .tileTag = 777,
     .paletteTag = 777,
     .oam = &sMonOamData,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy,
+};
+
+const u8 sTree1PixelData[] = INCBIN_U8("graphics/title_screen/rose_tree_1.4bpp.lz");
+const u8 sTree2PixelData[] = INCBIN_U8("graphics/title_screen/rose_tree_2.4bpp.lz");
+const u8 sTree3PixelData[] = INCBIN_U8("graphics/title_screen/rose_tree_3.4bpp.lz");
+const u8 sTree4PixelData[] = INCBIN_U8("graphics/title_screen/rose_tree_4.4bpp.lz");
+const u8 sTreePalette[] = INCBIN_U8("graphics/title_screen/rose_tree.gbapal.lz");
+static const struct CompressedSpriteSheet sSpriteSheet_Tree1[] =
+{
+    {sTree1PixelData,  4096, 778},
+    {NULL},
+};
+static const struct CompressedSpriteSheet sSpriteSheet_Tree2[] =
+{
+    {sTree2PixelData,  4096, 779},
+    {NULL},
+};
+static const struct CompressedSpriteSheet sSpriteSheet_Tree3[] =
+{
+    {sTree3PixelData,  4096, 780},
+    {NULL},
+};
+static const struct CompressedSpriteSheet sSpriteSheet_Tree4[] =
+{
+    {sTree4PixelData,  4096, 781},
+    {NULL},
+};
+static const struct CompressedSpritePalette sSpritePal_Tree[] =
+{
+    {sTreePalette, 778},
+    {NULL},
+};
+static const struct OamData sTreeOamData =
+{
+    .y = 0,
+    .affineMode = 0,
+    .objMode = 0,
+    .mosaic = 0,
+    .bpp = 0,
+    .shape = 0,
+    .x = 0,
+    .matrixNum = 0,
+    .size = 3,
+    .tileNum = 0,
+    .priority = 0,
+    .paletteNum = 0,
+    .affineParam = 0,
+};
+static const struct SpriteTemplate sTree1SpriteTemplate =
+{
+    .tileTag = 778,
+    .paletteTag = 778,
+    .oam = &sTreeOamData,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy,
+};
+static const struct SpriteTemplate sTree2SpriteTemplate =
+{
+    .tileTag = 779,
+    .paletteTag = 778,
+    .oam = &sTreeOamData,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy,
+};
+static const struct SpriteTemplate sTree3SpriteTemplate =
+{
+    .tileTag = 780,
+    .paletteTag = 778,
+    .oam = &sTreeOamData,
+    .anims = gDummySpriteAnimTable,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy,
+};
+static const struct SpriteTemplate sTree4SpriteTemplate =
+{
+    .tileTag = 781,
+    .paletteTag = 778,
+    .oam = &sTreeOamData,
     .anims = gDummySpriteAnimTable,
     .images = NULL,
     .affineAnims = gDummySpriteAffineAnimTable,
@@ -688,7 +778,7 @@ void CB2_InitTitleScreen(void)
         // LZ77UnCompVram(sLegendaryMonPixelData, (void *)(VRAM + 0x8000));
         // LZ77UnCompVram(sLegendaryMonTilemap, (void *)(VRAM + 0xC000));
         // LZ77UnCompVram(sBackdropTilemap, (void *)(VRAM + 0xC800));
-        //LoadPalette(sLegendaryMonPalettes, 0xE0, sizeof(sLegendaryMonPalettes));
+        // LoadPalette(sLegendaryMonPalettes, 0xE0, sizeof(sLegendaryMonPalettes));
 
         LZ77UnCompVram(&sBackgroundPixelData, (void *)(VRAM + 0x8000));
         LZ77UnCompVram(&sBackgroundTilemap, (void *)(VRAM + 0xC000));
@@ -707,6 +797,11 @@ void CB2_InitTitleScreen(void)
 
         LoadCompressedObjectPic(sSpriteSheet_Mon);
         LoadCompressedObjectPalette(sSpritePal_Mon);
+
+        LoadCompressedObjectPic(sSpriteSheet_Tree1);
+        LoadCompressedObjectPic(sSpriteSheet_Tree2);
+        LoadCompressedObjectPic(sSpriteSheet_Tree3);
+        LoadCompressedObjectPic(sSpriteSheet_Tree4);
 
         gMain.state = 2;
         break;
@@ -849,7 +944,16 @@ static void Task_TitleScreenPhase2(u8 taskId)
         CreatePressStartBanner(START_BANNER_X, 108);
         CreateCopyrightBanner(DISPLAY_WIDTH / 2, 148);
 
-        CreateSprite(&sMonSpriteTemplate, 190, 110, 0);
+        CreateSprite(&sMonSpriteTemplate, 190, 115, 0);
+
+        FreeAllSpritePalettes();
+        gReservedSpritePaletteCount = 14;
+        LoadPalette(gUnknown_08E9F624, 0x100, 0x1C0);
+        LoadCompressedObjectPalette(sSpritePal_Tree);
+        CreateSprite(&sTree1SpriteTemplate, TREE_X, TREE_Y, 0);
+        CreateSprite(&sTree2SpriteTemplate, TREE_X+64, TREE_Y, 0);
+        CreateSprite(&sTree3SpriteTemplate, TREE_X, TREE_Y+64, 0);
+        CreateSprite(&sTree4SpriteTemplate, TREE_X+64, TREE_Y+64, 0);
 
         gTasks[taskId].data[4] = 0;
         gTasks[taskId].func = Task_TitleScreenPhase3;
